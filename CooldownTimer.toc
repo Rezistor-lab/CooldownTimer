@@ -1,0 +1,11 @@
+# In game run "/run print((select(4, GetBuildInfo())))" and use that for the interface number
+
+## Interface: 11305
+## Title: CooldownTimer
+## Notes: Cooldown timer bar - heavily inspired by SexyCooldown by cheald 
+## Author: Rezistor
+## Version: 0.3.0
+## SavedVariablesPerCharacter: CooldownTimerDb
+## DefaultState: Enabled
+## LoadOnDemand: 0
+main.xml
