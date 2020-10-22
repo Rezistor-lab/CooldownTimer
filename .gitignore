@@ -39,3 +39,7 @@ luac.out
 *.x86_64
 *.hex
 
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/ProjectSettings.json
+/.vs/CooldownTimer/v16

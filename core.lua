@@ -54,9 +54,7 @@ function Addon:Slash_toggle()
 	if CooldownTimerDb.bar.visible then self.frame:Show() else self.frame:Hide() end
 end
 
-function Addon:Slash_debug(param)
-	self.Utils:Log('test:'..(self.Utils:Dump(...)))
-
+function Addon:Slash_debug()
 	CooldownTimerDb.debug = not CooldownTimerDb.debug
 	self.Utils:Log('debug state:'..(CooldownTimerDb.debug and 'true' or 'false'))
 end
@@ -107,10 +105,12 @@ function Addon:OnLoad()
     _G[('SLASH_%s1'):format(ADDON)] = ('/%s'):format(ADDON:lower())
     _G[('SLASH_%s2'):format(ADDON)] = '/ct'
 	
-	SlashCmdList[ADDON] = function(cmd, ...)--split cmd by first whitespace
+	SlashCmdList[ADDON] = function(arg, ...)
+		local args = self.Utils:Split(arg, ' ')
+		local cmd = table.remove(args, 1);
 		local func = self['Slash_'..cmd:lower()]
 		if type(func) == 'function' then
-			return func(self, ...)
+			return func(self, args)
 		else 
 			self:PrintHelp()
 		end

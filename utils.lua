@@ -8,9 +8,8 @@ local pairs = _G.pairs
 local ipairs = _G.ipairs
 
 local Migrations = {
-	[0]={next=1, version=''},
-	[1]={next=2, version='0_2_0', transform='FromNilTo020'},
-	[2]={next=nil, version='0_3_0', transform='From020To030'}
+	[0]={next=nil, version='0_3_0'},
+	--[2]={next=IDX, version='0_4_0', transform='FromXXXToYYY'}
 }
 
 -- Logging
@@ -26,17 +25,25 @@ function Utils:LogDebug(msg)
 	if CooldownTimerDb ~= nil and CooldownTimerDb.debug == true then Utils:Log(msg) end
 end
 
-function Utils:GetDump(o)
+function Utils:Dump(o)
    if type(o) == 'table' then
       local s = '{ '
       for k,v in pairs(o) do
          if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. Utils:GetDump(v) .. ','
+         s = s .. '['..k..'] = ' .. Utils:Dump(v) .. ','
       end
       return s .. '} '
    else
       return tostring(o)
    end
+end
+
+function Utils:Split(str, delimiter)
+	local words = {}
+	for w in (str .. delimiter):gmatch("([^"..delimiter.."]*)"..delimiter) do 
+		table.insert(words, w) 
+	end
+	return words
 end
 
 -- Utils
